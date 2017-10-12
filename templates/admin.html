@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+  <table class="table table-inverse">
+    <thead class="thead-default">
+      <tr>
+        <th>STT</th>
+        <th>Thể loại</th>
+        <th>Mô tả</th>
+        <th>Ảnh minh họa</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for girl_type in girl_types %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ girl_type.name }}</td>
+          <td>{{ girl_type.description }}</td>
+          <td><a target="_blank" href="{{ girl_type.image }}">Xem ảnh</a></td>
+          <td>
+            <a href="{{ url_for('edit_girl_type', girl_id=girl_type.id) }}">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a href="/delete_girl_type/{{ girl_type.id }}">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

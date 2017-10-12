@@ -1,9 +1,26 @@
-.card-girl-type{
+.card-girl-type {
   min-height: 420px !important;
 
 }
 
-.card-girl-img{
+.card-girl-img {
   object-fit: cover;
   height: 20vw !important;
+}
+
+#inpdesc {
+  min-width: 10500px !important;
+}
+
+#blue-tag{
+  background-color: rgb(0,86,178);
+}
+
+#blue-tag-menu{
+  background-color: rgb(0,86,178);
+}
+
+#inputfield{
+  width: 300px;
+  height: 25px;
 }

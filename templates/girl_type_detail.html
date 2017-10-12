@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<script> function goBack()
+ {
+   window.history.back()
+ }
+ </script>
+
+<div class="container">
+  <div class="row">
+      <div class="card-body">
+        <h1 class="card-title">{{ girl_type.name }}</h1>
+        <img src="{{ girl_type.image }}" alt="" class="mb-3 img-fluid card-img-top">
+        <p>{{ girl_type.description }}</p>
+        <button onclick="goBack()" class="btn btn-primary">Back</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
