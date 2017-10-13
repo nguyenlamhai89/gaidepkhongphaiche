@@ -27,3 +27,4 @@ mongoengine
 # ----------------------
 youtube-dl
 flake8
+eventlet 
