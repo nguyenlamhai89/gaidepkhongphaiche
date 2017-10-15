@@ -1,4 +1,5 @@
 from flask import *
+import os
 import mlab
 from models.girl_type import GirlType, dump_data
 
@@ -14,6 +15,7 @@ girl_type.save()
 
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "QJNAS0as09dqw99)=,zvckj"
 
 gt = [
     {
@@ -45,13 +47,47 @@ def girl_type_detail(girl_id):
     else:
         return "<h4>Không tìm thấy loại gái này</h4>"
 
-@app.route("/edit_girl_type/<girl_id>")
+@app.route("/edit_girl_type/<girl_id>", methods=["GET", "POST"])
 def edit_girl_type(girl_id):
-    return render_template("edit.html", girl_type=girl_type)
+    girl_type = GirlType.objects().with_id(girl_id)
+    if request.method == "GET":
+        if girl_type is not None:
+            return render_template("edit.html", girl_type=girl_type)
+        return "Tuyệt chủng rồi"
+    elif request.method == "POST":
+        form = request.form
+
+        name = form["name"]
+        image = form["image"]
+        description = form["description"]
+
+        girl_type.update(set__name=name, set__image=image, set__description=description)
+        return "Successfully Updated"
 
 @app.route('/admin')
 def admin():
-    return render_template("admin.html", girl_types=GirlType.objects())
+    if "admin" not in session:
+        return abort(401)
+    else:
+        return render_template("admin.html", girl_types=GirlType.objects())
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if username=="admin" and password=="admin":
+            session["admin"] = True
+            return redirect("/admin")
+        else:
+            return abort(401)
+
+@app.route("/images/<image_name>")
+def image(image_name):
+    image_folder = os.path.join(app.root_path, 'static', 'images')
+    return send_from_directory(image_folder, image_name)
 
 @app.route("/delete_girl_type/<girl_id>")
 def delete_girl_type(girl_id):

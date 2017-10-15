@@ -2,12 +2,25 @@
 
 {% block page_content %}
 <div class="container">
-  <input type="text" class="form-control mb-2" value="{{ girl_type.name }}">
-  <br>
-  <img src="{{ girl_type.image }}" alt="{{ girl_type.name }}">
-  <br>
-  <textarea name="name" rows="10" cols="160" value="{{ girl_type.description }}"></textarea>
-  <button type="submit" class="btn btn-danger">Update</button>
-  <br>
+  <form action="/edit_girl_type/{{ girl_type.id }}" method="post">
+    <div class="form-group">
+      <label for="" class= "d-block"> Thể loại </label>
+      <input id = "bolo" type="text" name="name" value={{girl_type.name}} class = "form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="" class= "d-block"> Ảnh </label>
+      <img src="{{girl_type.image}}" alt="girl_type.name" class = "form-control mb-3">
+      <input name="image" value="{{ girl_type.image }}" type="text" value="" class = "form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="" class= "d-block"> Mô tả</label>
+      <textarea name="description" rows="10" cols="160" class = "form-control">{{girl_type.description}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-info" class = "form-control">Cập nhật thể loại</button>
+  </form>
 </div>
+
 {% endblock %}
